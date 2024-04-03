@@ -1,3 +1,12 @@
+/*
+ * Terreno.java
+ * 
+ * Última modificação: 03/04/2024 
+ */
+
+/**
+ *  Esta classe contém a estrutura de implementação de um Terreno 
+ */
 public class Terreno extends Propriedade{
     // Atributos
     private int numeroCasas;

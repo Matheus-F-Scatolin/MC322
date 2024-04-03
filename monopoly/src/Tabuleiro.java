@@ -1,3 +1,13 @@
+/*
+ * Tabuleiro.java
+ * 
+ * Última modificação: 03/04/2024 
+ */
+
+/**
+ *  Esta classe contém a estrutura de implementação de um Tabuleiro 
+ */
+
 public class Tabuleiro {
     private Jogador jogadores[];
     private Propriedade propriedades[];

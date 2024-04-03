@@ -1,3 +1,12 @@
+/*
+ * CartaSorte.java
+ * 
+ * Última modificação: 20/03/2024 
+ */
+
+/**
+ *  Esta classe contém a estrutura de implementação de um CartaSorte 
+ */
 public class CartaSorte {
     // Atributos da carta de sorte
     private int id;

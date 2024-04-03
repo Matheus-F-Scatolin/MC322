@@ -1,3 +1,7 @@
+/*
+ * Essa classe contém funções úteis que podem ser utilizadas durante o jogo, como
+ * validar CPFs e emails.
+ */
 public class Utilidades {
     // Validação de CPF
 

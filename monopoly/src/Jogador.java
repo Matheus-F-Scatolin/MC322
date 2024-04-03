@@ -1,4 +1,12 @@
-// Classe Jogador
+/*
+ * Jogador.java
+ * 
+ * Última modificação: 03/04/2024 
+ */
+
+/**
+ *  Esta classe contém a estrutura de implementação de um Jogador 
+ */
 public class Jogador {
     // Atributo estático para armazenar o número de jogadores criados
     private static int numJogadores = 0;

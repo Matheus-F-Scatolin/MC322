@@ -1,3 +1,13 @@
+/*
+ * Propriedade.java
+ * 
+ * Última modificação: 03/04/2024 
+ */
+
+/**
+ *  Esta classe contém a estrutura de implementação de um Terreno 
+ */
+
 public class Propriedade {
     // Variável de classe para controlar o número de propriedades
     private static int numPropriedades = 0;

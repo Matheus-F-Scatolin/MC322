@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/*
+ * Main.java
+ * 
+ * Última modificação: 03/04/2024 
+ */
 public class Main {
     /*
      * Esse método lê um email e um CPF do terminal e verifica se eles são válidos.	

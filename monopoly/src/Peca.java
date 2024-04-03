@@ -1,3 +1,13 @@
+/*
+ * Peca.java
+ * 
+ * Última modificação: 20/03/2024 
+ */
+
+/**
+ *  Esta classe contém a estrutura de implementação de uma Peca 
+ */
+
 public class Peca {
     // Atributos da peça
     private String cor;

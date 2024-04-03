@@ -1,3 +1,13 @@
+/*
+ * Estacao.java
+ * 
+ * Última modificação: 03/04/2024 
+ */
+
+/**
+ *  Esta classe contém a estrutura de implementação de uma Estacao 
+ */
+
 public class Estacao extends Propriedade {
     //A estação não possui atributos adicionais
 
