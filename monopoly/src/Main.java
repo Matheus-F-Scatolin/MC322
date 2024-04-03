@@ -6,43 +6,49 @@ public class Main {
      * Se não forem válidos, pede para o usuário inserir novamente, até que um email
      * e um CPF válidos sejam inseridos.
      */
-    private static void leituraCPFEmail(Jogador jogador){
-        // Criando um scanner para pegar um input do terminal
-        Scanner input = new Scanner(System.in);
+    private static void leituraCPFEmail(Jogador jogador, Scanner input){
         //Verificando se esse email é valido e pedindo alteração
-        while (!jogador.validarEmail()){
-            System.out.println("Email inválido! por favor, insira um email válido.");
+        String novoEmail;
+        do{
+            System.out.println("Por favor, insira um email válido.");
             // Pedir um input pelo terminal para alterar o email do jogador
-            String novoEmail = input.nextLine();
-            jogador.setEmail(novoEmail);
+            novoEmail = input.nextLine();
         }
+        while (!Utilidades.validarEmail(novoEmail));
+        jogador.setEmail(novoEmail);
 
         //Verificando o CPF do jogador e pedindo alteração
-        while (!jogador.validarCPF()){
-            System.out.println("CPF inválido! por favor, insira um CPF válido.");
+        String novoCPF;
+        do{
+            System.out.println("Por favor, insira um CPF válido.");
             // Pedir um input pelo terminal para alterar o CPF do jogador
-            String novoCPF = input.nextLine();
-            jogador.setCpf(novoCPF); 
-            }
-            // Fechando o scanner
-            input.close();
+            novoCPF = input.nextLine();
+        }
+        while (!Utilidades.validarCPF(novoCPF));
+        jogador.setCpf(novoCPF);
         }
     
     public static void main(String[] args){
+        // Criando um scanner para pegar um input do terminal
+        Scanner input = new Scanner(System.in);
+
         // Instanciando um jogador
-        Jogador jogador1 = new Jogador("João", "123.456.789-00", "joao@gmail.com", "joao.jpg");
-
-        // Alterando o nome do jogador
-        jogador1.setNome("João da Silva");
-
-        // Alterando o email do jogador
-        jogador1.setEmail("joaosilva.gmail.com");
-
-        //Verificando se o email e o cpf são validos e pedindo alteração
-        leituraCPFEmail(jogador1);
-
+        Jogador jogador1 = new Jogador("João", "joao.jpg");
+        
+        // Lendo o nome e email do jogador
+        leituraCPFEmail(jogador1, input);
+        
         // Imprimindo os dados do jogador
         System.out.println(jogador1.toString());
+        
+        //Instanciando um segundo jogador
+        Jogador jogador2 = new Jogador("Maria", "maria.jpg");
+
+        // Lendo o nome e email do jogador
+        leituraCPFEmail(jogador2, input);
+
+        // Imprimindo os dados do jogador
+        System.out.println(jogador2.toString());
 
         // Instanciando uma peça
         Peca peca1 = new Peca("vermelho", 0);
@@ -66,5 +72,44 @@ public class Main {
         // Imprimindo os dados da carta
         System.out.println(carta1.toString());
 
+        // Instanciando o tabuleiro
+        Tabuleiro tabuleiro = new Tabuleiro();
+
+        //Adicionando os jogadores ao tabuleiro
+        tabuleiro.addJogador(jogador1);
+        tabuleiro.addJogador(jogador2);
+
+        // Adicionando uma propriedade ao tabuleiro, a qual pertence ao jogador1
+        Propriedade propriedade1 = new Propriedade("propriedade 1", jogador1, 1000, 200);
+        jogador1.setDinheiro(jogador1.getDinheiro() - propriedade1.getPreco());
+        tabuleiro.addPropriedade(propriedade1);
+
+        // Imprimindo os dados da propriedade
+        System.out.println(propriedade1.toString());
+
+        //Instanciando um serviço publico
+        ServicoPublico servico1 = new ServicoPublico("Serviço 1", jogador2, 1500, 300);
+        jogador2.setDinheiro(jogador2.getDinheiro() - servico1.getPreco());
+        tabuleiro.addPropriedade(servico1);
+
+        // Instanciando um terreno
+        Terreno terreno1 = new Terreno("Terreno 1", jogador1, 1500, 300, 800, 3000);
+        jogador1.setDinheiro(jogador1.getDinheiro() - terreno1.getPreco());
+        tabuleiro.addPropriedade(terreno1);
+
+        // Comprando uma casa no terreno (essa função já testa se o jogador possui dinheiro o suficiente e reduz seu dinheiro)
+        terreno1.comprarCasa();
+        //Imprimir os dados desse terreno
+        System.out.println(terreno1.toString());
+
+        // Instanciando uma estação
+        Estacao estacao1 = new Estacao("estação 1", jogador2, 1000,200);
+        jogador2.setDinheiro(jogador2.getDinheiro() - estacao1.getPreco());
+        tabuleiro.addPropriedade(estacao1);
+
+
+
+        // Fechando o scanner
+        input.close();
     }
 }
