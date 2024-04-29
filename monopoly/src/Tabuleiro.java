@@ -1,7 +1,7 @@
 /*
  * Tabuleiro.java
  * 
- * Última modificação: 03/04/2024 
+ * Última modificação: 29/04/2024 
  */
 
  import java.util.ArrayList;
@@ -19,6 +19,17 @@
          this.jogadores = new ArrayList<Jogador>();
          this.propriedades = new ArrayList<Propriedade>();
      }
+
+     // Getters
+    // Jogadores: lista de jogadores no tabuleiro
+    public ArrayList<Jogador> getJogadores() {
+        return this.jogadores;
+    }
+
+    // Propriedades: lista de propriedades no tabuleiro
+    public ArrayList<Propriedade> getPropriedades() {
+        return this.propriedades;
+    }
  
      // Métodos
  
@@ -75,4 +86,24 @@
          }
          return false;
      }
- }
+
+        /*
+        * Essa função retorna os dados de todos os jogadores e propriedades do tabuleiro.
+        */
+        public String toString(){
+            String out = "-------------------------------\n";
+            out += "Tabuleiro:\n";
+            out += "-------------------------------\n";
+            out += "Jogadores:\n";
+            for (Jogador jogador : this.jogadores){
+                out += jogador.getNome() + " (" + jogador.getId() +").\n";
+            }
+            out += "-------------------------------\n";
+            out += "Propriedades:\n";
+            for (Propriedade propriedade : this.propriedades){
+                out += propriedade.getNome() + " (" + propriedade.getId() +").\n";
+            }
+            out += "-------------------------------\n";
+            return out;
+        }
+}

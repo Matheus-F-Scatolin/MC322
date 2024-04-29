@@ -1,4 +1,10 @@
 /*
+ * Main.java
+ * 
+ * Última modificação: 29/04/2024 
+ */
+
+/*
  * Essa classe contém funções úteis que podem ser utilizadas durante o jogo, como
  * validar CPFs e emails.
  */

@@ -1,7 +1,7 @@
 /*
  * CartaSorte.java
  * 
- * Última modificação: 20/03/2024 
+ * Última modificação: 29/03/2024 
  */
 
 /**

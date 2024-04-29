@@ -1,7 +1,7 @@
 /*
  * Terreno.java
  * 
- * Última modificação: 03/04/2024 
+ * Última modificação: 29/04/2024 
  */
 
 /**
@@ -58,6 +58,7 @@ public class Terreno extends Propriedade{
     }
 
     // Métodos
+
     /*
      * Essa função calcula o valor do aluguel do terreno, levando em consideração o número de casas e se há um hotel.
      * @return: valor do aluguel do terreno
@@ -122,10 +123,21 @@ public class Terreno extends Propriedade{
         return true;
     }
 
+    // Método toString para imprimir os dados do serviço público
     public String toString() {
-        return super.toString() + "\nNúmero de casas: " + this.numeroCasas + "\nValor da casa: "
-        + this.valorCasa + "\nValor do hotel: " + this.valorHotel + "\nTem hotel: " + this.temHotel
-        + "\nAluguel: " + this.calcularAluguel();
+        String dono = "Nenhum";
+        if (super.getDono() != null) {
+            dono = super.getDono().getNome();
+        }
+        return "Propriedade: " + super.getNome() + "\n" +
+               "ID: " + super.getId() + "\n" +
+               "Proprietário: " + dono + "\n" +
+               "Preço: " + super.getPreco() + "\n" +
+               "Aluguel Base: " + super.getAluguelBase() + "\n" +
+               "Número de casas: " + this.numeroCasas + "\n" +
+               "Valor da casa: " + this.valorCasa + "\n" +
+               "Valor do hotel: " + this.valorHotel + "\n" +
+               "Tem hotel: " + this.temHotel + "\n" +
+               "Aluguel: " + this.calcularAluguel();
     }
-
 }

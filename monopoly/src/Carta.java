@@ -1,13 +1,13 @@
 /*
  * Carta.java
  * 
- * Última modificação: 20/04/2024 
+ * Última modificação: 29/04/2024 
  */
 
 /**
  *  Esta classe contém a estrutura de implementação de uma Carta 
  */
-public class Carta {
+abstract public class Carta {
     // Atributos da carta
     // Atributo estático para armazenar o número de cartas
     private static int numCartas = 0;
@@ -45,4 +45,8 @@ public class Carta {
     public void setDono(Jogador dono) {
         this.dono = dono;
     }
+
+    // Métodos
+    // Método abstrato que deverá ser implementado nas subclasses
+    abstract public String toString();
 }

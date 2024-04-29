@@ -1,14 +1,14 @@
 /*
  * Propriedade.java
  * 
- * Última modificação: 03/04/2024 
+ * Última modificação: 29/04/2024 
  */
 
 /**
  *  Esta classe contém a estrutura de implementação de um Terreno 
  */
 
-public class Propriedade extends Carta{
+abstract public class Propriedade extends Carta{
     // Atributos da propriedade
     private String nome;
     private int preco;
@@ -50,17 +50,13 @@ public class Propriedade extends Carta{
     }
 
     // Métodos
+
+    // Método abstrato que deverá ser implementado nas subclasses
+    // Ele não é um método abstrato pois, a depender da subclasse, podem haver parâmetros diferentes
     public int calcularAluguel() {
-        // Por enquanto, essa função só retorna o aluguel base (a ideia é mudar mais pra frente)
-        return this.aluguelBase;
+        return 0;
     }
 
-    // Método toString para imprimir os dados da propriedade
-    public String toString() {
-        return "Propriedade: " + this.nome + "\n" +
-               "ID: " + super.getId() + "\n" +
-               "Proprietário: " + super.getDono().getNome() + "\n" +
-               "Preço: " + this.preco + "\n" +
-               "Aluguel Base: " + this.aluguelBase;
-    }
+    // Método toString para imprimir os dados da propriedade deve ser implementado nas subclasses
+    abstract public String toString();
 }

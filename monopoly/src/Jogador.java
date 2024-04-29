@@ -1,7 +1,7 @@
 /*
  * Jogador.java
  * 
- * Última modificação: 03/04/2024 
+ * Última modificação: 29/04/2024 
  */
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class Jogador {
     private Peca peca;
 
     // Construtor do jogador
-    public Jogador(String nome, String foto, Peca  peca) {
+    public Jogador(String nome, String foto, Peca peca) {
         // Incrementando o número de jogadores
         numJogadores += 1;
         this.id = numJogadores;
@@ -126,7 +126,15 @@ public class Jogador {
      * @return: os dados do jogador
      */
     public String toString() {
-        return "Dados do jogador:\nNome: " + this.getNome() + "\nId: " + this.getId() + "\nDinheiro: " + this.getDinheiro() 
-        + "\nPeca: " + this.getPeca().getCor() + "\nPosicao: " + this.getPeca().getPosicao();
+        String cartas = "";
+        for (Carta carta : this.cartas) {
+            cartas += carta.getDescricao() + ", ";
+        }
+        return "Dados do jogador:\nNome: " + this.getNome() +
+               "\nId: " + this.getId() +
+               "\nDinheiro: " + this.getDinheiro() +
+               "\nPeca: " + this.getPeca().getCor() +
+               "\nPosicao: " + this.getPeca().getPosicao() +
+               "\nCartas:" + cartas;
     }
 }
