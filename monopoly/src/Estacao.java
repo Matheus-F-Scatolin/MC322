@@ -12,9 +12,9 @@ public class Estacao extends Propriedade {
     //A estação não possui atributos adicionais
 
     //Construtor da estação
-    public Estacao(String nome, Jogador proprietario, int preco, int aluguelBase) {
+    public Estacao(String nome, String descricao, Jogador proprietario, int preco, int aluguelBase) {
         //Chamando o construtor da superclasse
-        super(nome, proprietario, preco, aluguelBase);
+        super(nome, descricao, proprietario, preco, aluguelBase);
     }
 
     // Métodos

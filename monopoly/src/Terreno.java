@@ -15,9 +15,9 @@ public class Terreno extends Propriedade{
     private boolean temHotel;
 
     // Construtor
-    public Terreno(String nome, Jogador proprietario, int preco, int aluguelBase, int valorCasa, int valorHotel) {
+    public Terreno(String nome, String descricao, Jogador proprietario, int preco, int aluguelBase, int valorCasa, int valorHotel) {
         // Chamando o construtor da superclasse
-        super(nome, proprietario, preco, aluguelBase);
+        super(nome, descricao, proprietario, preco, aluguelBase);
         this.numeroCasas = 0;
         this.valorCasa = valorCasa;
         this.valorHotel = valorHotel;
@@ -78,7 +78,7 @@ public class Terreno extends Propriedade{
      */
     public boolean comprarCasa() {
         // Verifica se o jogador tem dinheiro suficiente para comprar uma casa
-        if (super.getProprietario().getDinheiro() < this.valorCasa) {
+        if (super.getDono().getDinheiro() < this.valorCasa) {
             return false;
         }
         // Verifica se o terreno já possui um hotel
@@ -92,7 +92,7 @@ public class Terreno extends Propriedade{
         // Adiciona uma casa ao terreno
         this.numeroCasas += 1;
         // Remove o valor da casa do dinheiro do jogador
-        super.getProprietario().setDinheiro(super.getProprietario().getDinheiro() - this.valorCasa);
+        super.getDono().setDinheiro(super.getDono().getDinheiro() - this.valorCasa);
 
         return true;
     }
@@ -103,7 +103,7 @@ public class Terreno extends Propriedade{
      */
     public boolean comprarHotel() {
         // Verifica se o jogador tem dinheiro suficiente para comprar um hotel
-        if (super.getProprietario().getDinheiro() < this.valorHotel) {
+        if (super.getDono().getDinheiro() < this.valorHotel) {
             return false;
         }
         // Verifica se o terreno já possui um hotel
@@ -117,7 +117,7 @@ public class Terreno extends Propriedade{
         // Adiciona um hotel ao terreno
         this.temHotel = true;
         // Remove o valor do hotel do dinheiro do jogador
-        super.getProprietario().setDinheiro(super.getProprietario().getDinheiro() - this.valorHotel);
+        super.getDono().setDinheiro(super.getDono().getDinheiro() - this.valorHotel);
 
         return true;
     }

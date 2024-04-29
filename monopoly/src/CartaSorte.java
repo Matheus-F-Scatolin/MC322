@@ -7,10 +7,8 @@
 /**
  *  Esta classe contém a estrutura de implementação de um CartaSorte 
  */
-public class CartaSorte {
+public class CartaSorte extends Carta{
     // Atributos da carta de sorte
-    private int id;
-    private String descricao;
     private int movimentoTabuleiro;
     private int efeito;
     private float valorPagamentoRecebimento;
@@ -19,9 +17,9 @@ public class CartaSorte {
     private String restricoesUso;
 
     // Construtor da carta de sorte
-    public CartaSorte(int id, String descricao, int movimentoTabuleiro, int efeito, float valorPagamentoRecebimento, String acaoEspecifica, int tempoAplicacao, String restricoesUso) {
-        this.id = id;
-        this.descricao = descricao;
+    public CartaSorte(String descricao, int movimentoTabuleiro, int efeito, float valorPagamentoRecebimento, String acaoEspecifica, int tempoAplicacao, String restricoesUso) {
+        // Chamando o construtor da superclasse
+        super(descricao, null);
         this.movimentoTabuleiro = movimentoTabuleiro;
         this.efeito = efeito;
         this.valorPagamentoRecebimento = valorPagamentoRecebimento;
@@ -31,22 +29,6 @@ public class CartaSorte {
     }
 
     // Getters e Setters
-
-    // Id: identificador único
-    public int getId() {
-        return this.id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    // Descrição: nome da carta
-    public String getDescricao() {
-        return this.descricao;
-    }
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     // Movimento no tabuleiro: Para cartas que instruem os jogadores a se moverem para uma determinada casa no tabuleiro
     public int getMovimentoTabuleiro() {
@@ -104,6 +86,6 @@ public class CartaSorte {
      * @return: string com os dados da carta de sorte
      */
     public String toString(){
-        return "A carta de sorte " + this.descricao + " tem efeito " + this.efeito + " e valor de pagamento/recebimento " + this.valorPagamentoRecebimento + ".";
+        return "A carta de sorte " + super.getDescricao() + " tem efeito " + this.efeito + " e valor de pagamento/recebimento " + this.valorPagamentoRecebimento + ".";
     }
 }

@@ -21,7 +21,6 @@ public class Main {
         }
         while (!Utilidades.validarEmail(novoEmail));
         jogador.setEmail(novoEmail);
-
         //Verificando o CPF do jogador e pedindo alteração
         String novoCPF;
         do{
@@ -38,7 +37,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         // Instanciando um jogador
-        Jogador jogador1 = new Jogador("João", "joao.jpg");
+        Jogador jogador1 = new Jogador("João", "joao.jpg", new Peca("vermelho", 0));
         
         // Lendo o nome e email do jogador
         leituraCPFEmail(jogador1, input);
@@ -47,14 +46,13 @@ public class Main {
         System.out.println(jogador1.toString());
         
         //Instanciando um segundo jogador
-        Jogador jogador2 = new Jogador("Maria", "maria.jpg");
+        Jogador jogador2 = new Jogador("Maria", "maria.jpg", new Peca("azul", 0));
 
         // Lendo o nome e email do jogador
         leituraCPFEmail(jogador2, input);
 
         // Imprimindo os dados do jogador
         System.out.println(jogador2.toString());
-
         // Instanciando uma peça
         Peca peca1 = new Peca("vermelho", 0);
 
@@ -68,7 +66,7 @@ public class Main {
         System.out.println(peca1.toString());
 
         // Instanciando uma carta
-        CartaSorte carta1 = new CartaSorte(1, "Pague 200", 0, -1, -200, "", 0, "");
+        CartaSorte carta1 = new CartaSorte("Pague 200", 0, -1, -200, "", 0, "");
 
         // Alterando a descrição da carta
         carta1.setDescricao("Pague 300");
@@ -85,21 +83,21 @@ public class Main {
         tabuleiro.addJogador(jogador2);
 
         // Adicionando uma propriedade ao tabuleiro, a qual pertence ao jogador1
-        Propriedade propriedade1 = new Propriedade("propriedade 1", jogador1, 1000, 200);
-        jogador1.setDinheiro(jogador1.getDinheiro() - propriedade1.getPreco());
+        Propriedade propriedade1 = new Propriedade("propriedade 1", "primeira prop" , jogador1, 1000, 200);
+        jogador1.adicionarCarta(propriedade1, propriedade1.getPreco());
         tabuleiro.addPropriedade(propriedade1);
 
         // Imprimindo os dados da propriedade
         System.out.println(propriedade1.toString());
 
         //Instanciando um serviço publico
-        ServicoPublico servico1 = new ServicoPublico("Serviço 1", jogador2, 1500, 300);
-        jogador2.setDinheiro(jogador2.getDinheiro() - servico1.getPreco());
+        ServicoPublico servico1 = new ServicoPublico("Serviço 1", "primeiro serv", jogador2, 1500, 300);
+        jogador2.adicionarCarta(servico1, servico1.getPreco());
         tabuleiro.addPropriedade(servico1);
 
         // Instanciando um terreno
-        Terreno terreno1 = new Terreno("Terreno 1", jogador1, 1500, 300, 800, 3000);
-        jogador1.setDinheiro(jogador1.getDinheiro() - terreno1.getPreco());
+        Terreno terreno1 = new Terreno("Terreno 1", "primeiro terreno", jogador1, 1500, 300, 800, 3000);
+        jogador1.adicionarCarta(terreno1, terreno1.getPreco());
         tabuleiro.addPropriedade(terreno1);
 
         // Comprando uma casa no terreno (essa função já testa se o jogador possui dinheiro o suficiente e reduz seu dinheiro)
@@ -108,10 +106,9 @@ public class Main {
         System.out.println(terreno1.toString());
 
         // Instanciando uma estação
-        Estacao estacao1 = new Estacao("estação 1", jogador2, 1000,200);
+        Estacao estacao1 = new Estacao("estação 1", "primeira est", jogador2, 1000,200);
         jogador2.setDinheiro(jogador2.getDinheiro() - estacao1.getPreco());
         tabuleiro.addPropriedade(estacao1);
-
 
 
         // Fechando o scanner

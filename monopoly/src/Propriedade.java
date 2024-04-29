@@ -8,34 +8,22 @@
  *  Esta classe contém a estrutura de implementação de um Terreno 
  */
 
-public class Propriedade {
-    // Variável de classe para controlar o número de propriedades
-    private static int numPropriedades = 0;
+public class Propriedade extends Carta{
     // Atributos da propriedade
-    private int id;
     private String nome;
-    private Jogador proprietario;
     private int preco;
     private int aluguelBase;
 
     // Construtor da propriedade
-    public Propriedade(String nome, Jogador proprietario, int preco, int aluguelBase) {
-        // Incrementando o número de propriedades
-        numPropriedades += 1;
-        // Atribuindo o id da propriedade
-        this.id = numPropriedades;
+    public Propriedade(String nome, String descricao, Jogador proprietario, int preco, int aluguelBase) {
+        // Chamando o construtor da superclasse
+        super(descricao, proprietario);
         this.nome = nome;
-        this.proprietario = proprietario;
         this.preco = preco;
         this.aluguelBase = aluguelBase;
     }
 
     // Getters e Setters
-
-    // Id: identificador único. Não possui setter pois o id não pode ser alterado
-    public int getId() {
-        return this.id;
-    }
 
     // Nome: nome da propriedade
     public String getNome() {
@@ -43,14 +31,6 @@ public class Propriedade {
     }
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    // Proprietário: nome do proprietário da propriedade
-    public Jogador getProprietario() {
-        return this.proprietario;
-    }
-    public void setProprietario(Jogador proprietario) {
-        this.proprietario = proprietario;
     }
 
     // Preço: preço da propriedade
@@ -78,8 +58,8 @@ public class Propriedade {
     // Método toString para imprimir os dados da propriedade
     public String toString() {
         return "Propriedade: " + this.nome + "\n" +
-               "ID: " + this.id + "\n" +
-               "Proprietário: " + this.proprietario.getNome() + "\n" +
+               "ID: " + super.getId() + "\n" +
+               "Proprietário: " + super.getDono().getNome() + "\n" +
                "Preço: " + this.preco + "\n" +
                "Aluguel Base: " + this.aluguelBase;
     }

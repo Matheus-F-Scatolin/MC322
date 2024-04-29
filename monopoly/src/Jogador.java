@@ -4,6 +4,8 @@
  * Última modificação: 03/04/2024 
  */
 
+import java.util.ArrayList;
+
 /**
  *  Esta classe contém a estrutura de implementação de um Jogador 
  */
@@ -18,9 +20,11 @@ public class Jogador {
     private String email;
     // Atributo para armazenar o caminho da foto do jogador
     private String foto;
+    private ArrayList<Carta> cartas;
+    private Peca peca;
 
     // Construtor do jogador
-    public Jogador(String nome, String foto) {
+    public Jogador(String nome, String foto, Peca  peca) {
         // Incrementando o número de jogadores
         numJogadores += 1;
         this.id = numJogadores;
@@ -28,6 +32,8 @@ public class Jogador {
         this.dinheiro = 5000;
         this.nome = nome;
         this.foto = foto;
+        this.cartas = new ArrayList<Carta>();
+        this.peca = peca;
     }
 
     // Getters e setters
@@ -76,7 +82,44 @@ public class Jogador {
         this.foto = foto;
     }
 
+    // Cartas: cartas do jogador
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
+    public void setCartas(ArrayList<Carta> cartas) {
+        this.cartas = cartas;
+    }
+
+    // Peca: peça do jogador
+    public Peca getPeca() {
+        return peca;
+    }
+    public void setPeca(Peca peca) {
+        this.peca = peca;
+    }
+
     // Métodos
+
+    /*
+     * Essa função adiciona uma carta ao jogador.
+     * @param valor: a carta a ser adicionada
+     */
+    public void adicionarCarta(Carta carta, int custoDaCarta) {
+        this.cartas.add(carta);
+        this.dinheiro -= custoDaCarta;
+    }
+
+    /*
+     * Essa função remove uma carta do jogador.
+     * @param valor: a carta a ser removida
+     */
+    public boolean removerCarta(Carta carta) {
+        if (this.cartas.remove(carta)) {
+            carta.setDono(null);
+            return true;
+        }
+        return false;
+    }
     
     /* 
      * Essa função retorna os dados do jogador, incluindo nome, CPF, email e foto.
@@ -84,6 +127,6 @@ public class Jogador {
      */
     public String toString() {
         return "Dados do jogador:\nNome: " + this.getNome() + "\nId: " + this.getId() + "\nDinheiro: " + this.getDinheiro() 
-        + "\nCPF: " + this.getCpf() + "\nEmail: " + this.getEmail() + "\nFoto: " + this.getFoto();
+        + "\nPeca: " + this.getPeca().getCor() + "\nPosicao: " + this.getPeca().getPosicao();
     }
 }

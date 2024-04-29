@@ -12,9 +12,9 @@ public class ServicoPublico extends Propriedade {
     // O Serviço público não possui atriutos adicionais
 
     // Construtor do serviço público
-    public ServicoPublico(String nome, Jogador proprietario, int preco, int aluguelBase) {
+    public ServicoPublico(String nome, String descricao, Jogador proprietario, int preco, int aluguelBase) {
         // Chamando o construtor da superclasse
-        super(nome, proprietario, preco, aluguelBase);
+        super(nome, descricao, proprietario, preco, aluguelBase);
     }
 
     // Métodos
