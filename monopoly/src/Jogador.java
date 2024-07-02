@@ -106,6 +106,7 @@ public class Jogador {
      */
     public void adicionarCarta(Carta carta, int custoDaCarta) {
         this.cartas.add(carta);
+        carta.setDono(this);
         this.dinheiro -= custoDaCarta;
     }
 
@@ -121,7 +122,48 @@ public class Jogador {
         return false;
     }
     
-    /* 
+    /**
+     * Essa função faz com que o jogador compre uma propriedade.
+     * @param propriedade a propriedade a ser comprada
+     */
+    public void comprarPropriedade(Propriedade propriedade) {
+        if (this.dinheiro >= propriedade.getPreco()) {
+            this.dinheiro -= propriedade.getPreco();
+            propriedade.setDono(this);
+            //Adicionar a carta dessa propriedade às cartas do jogador
+            this.adicionarCarta(propriedade, 0);
+
+            // Imprimir os dados da compra
+            Main.imprimirCompra(this, propriedade);
+        }
+    }
+
+    /**
+     * Essa função faz com que o jogador pague o aluguel de uma propriedade.
+     * @param propriedade a propriedade a ser paga.
+     */
+    public void pagarAluguel(Propriedade propriedade) {
+        if (this.dinheiro >= propriedade.calcularAluguel()) {
+            this.dinheiro -= propriedade.calcularAluguel();
+            propriedade.getDono().setDinheiro(propriedade.getDono().getDinheiro() + propriedade.calcularAluguel());
+        }
+        // Imprimir os dados do pagamento
+        Main.imprimirPagamentoAluguel(this, propriedade);
+    }
+
+    /**
+     * Essa função faz com que o jogador puxe uma carta aleatória.
+     * A carta é retirada permanece no baralho.
+     * @param cartasSorte o baralho de cartas de sorte.
+     * @return a carta sorte puxada.
+     */
+    public CartaSorte puxarCartaSorte(ArrayList<CartaSorte> cartasSorte) {
+        //Pega uma carta aleatória (a carta permanece no baralho)
+        CartaSorte cartaSorte = cartasSorte.get((int) (Math.random() * cartasSorte.size()));
+        return cartaSorte;
+    }
+
+    /**
      * Essa função retorna os dados do jogador, incluindo nome, CPF, email e foto.
      * @return: os dados do jogador
      */

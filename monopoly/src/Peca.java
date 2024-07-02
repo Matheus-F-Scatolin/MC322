@@ -40,6 +40,26 @@ public class Peca {
     // Métodos
 
     /*
+     * Essa função move a peça do jogador no tabuleiro.
+     * @param deslocamento: número de casas que a peça deve se mover
+     * @param n_total_posicoes: número total de posições do tabuleiro
+     * @param jogador: jogador que está movendo a peça
+     */
+    public void mover(int deslocamento, Jogador jogador, Tabuleiro tabuleiro){
+        // Alterar o multiplicador do aluguel dos serviços públicos
+        ServicoPublico.setMultiplicador(deslocamento);
+
+        // Se o jogador completar uma volta, adicionar 500 ao dinheiro
+        if (deslocamento + this.posicao >= tabuleiro.getPosicoes().size()){
+            jogador.setDinheiro(jogador.getDinheiro() + 500);
+            Main.imprimirVoltaCompleta(jogador);
+        }
+        
+        // Atualizar a posição da peça
+        this.posicao = (this.posicao + deslocamento)% tabuleiro.getPosicoes().size();
+    }
+
+    /*
      * Essa função retorna uma string com os dados da peça no formato:
      * "A peça de cor [cor] está na posição [posicao] do tabuleiro."
      * @return: string com os dados da peça

@@ -51,11 +51,8 @@ abstract public class Propriedade extends Carta{
 
     // Métodos
 
-    // Método abstrato que deverá ser implementado nas subclasses
-    // Ele não é um método abstrato pois, a depender da subclasse, podem haver parâmetros diferentes
-    public int calcularAluguel() {
-        return 0;
-    }
+    // Método abstrato que deverá ser implementado nas subclassess
+    abstract public int calcularAluguel();
 
     // Método toString para imprimir os dados da propriedade deve ser implementado nas subclasses
     abstract public String toString();

@@ -9,7 +9,8 @@
  */
 
 public class ServicoPublico extends Propriedade {
-    // O Serviço público não possui atriutos adicionais
+    // Atributo estático para armazenar o multiplicador do aluguel (cada vez que alguém joga o dado, essa variável muda de valor)
+   private static int multiplicador = 0;
 
     // Construtor do serviço público
     public ServicoPublico(String nome, String descricao, Jogador proprietario, int preco, int aluguelBase) {
@@ -17,15 +18,22 @@ public class ServicoPublico extends Propriedade {
         super(nome, descricao, proprietario, preco, aluguelBase);
     }
 
+    // Getters e Setters
+    public static int getMultiplicador() {
+        return multiplicador;
+    }
+    public static void setMultiplicador(int multiplicador) {
+        ServicoPublico.multiplicador = multiplicador;
+    }
     // Métodos
     /*
      * Essa função retorna o aluguel do serviço público.
      * @param dados: valor do dado
      * @return: aluguel do serviço público
      */
-    public int calcularAluguel(int dados) {
+    public int calcularAluguel() {
         // O aluguel do serviço público é o aluguel base multiplicado pelo valor do dado
-        return super.getAluguelBase() * dados;
+        return super.getAluguelBase() * multiplicador;
     }
 
     // Método toString para imprimir os dados do serviço público

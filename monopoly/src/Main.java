@@ -70,7 +70,7 @@ public class Main {
         }
         else if (tipo == 2){
             // Estação
-            propriedade = new Estacao(nome, descricao, null, preco, aluguelBase);
+            propriedade = new Estacao(nome, descricao, null, preco, aluguelBase, 0);
         }
         else if (tipo == 3){
             // Serviço Público
@@ -230,6 +230,149 @@ public class Main {
         }
         while (opcao != 7);
     }
+    
+    public static boolean perguntaCompraPropriedade(Tabuleiro tabuleiro, Jogador jogador, Scanner input) {
+        Propriedade propriedade = tabuleiro.getPosicoes().get(jogador.getPeca().getPosicao()).getPropriedade();
+        // Perguntar se o jogador quer comprar a propriedade
+        System.out.println("Você quer comprar a seguinte propriedade?"
+                + "\n" + propriedade.toString()
+                + "\n[1] Sim"
+                + "\n[2] Não");
+        int opcao = Integer.parseInt(input.nextLine());
+        if (opcao == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Esse método imprime uma carta de sorte puxada por um jogador.
+     * @param carta
+     */
+    public static void imprimirCartaSorte (Carta carta) {
+        System.out.println("O jogador puxou a seguinte carta de sorte:"
+                + "\n" + carta.getDescricao());
+    }
+
+    /**
+     * Esse método imprime que um jogador completou uma volta e ganhou 500 reais.
+     */
+    public static void imprimirVoltaCompleta(Jogador jogador) {
+        System.out.println("O jogador " + jogador.getNome() + " completou uma volta e ganhou 500 reais!");
+    }
+
+    /**
+     * Esse método imprime que um jogador pagou um aluguel.
+     * @param pagador o jogador que pagou o aluguel
+     * @param propriedade a propriedade que recebeu o aluguel
+     */
+    public static void imprimirPagamentoAluguel(Jogador pagador, Propriedade propriedade) {
+        System.out.println(pagador.getNome() + " pagou " + propriedade.calcularAluguel() + " reais de aluguel para " + propriedade.getDono().getNome() + ".");
+    }
+
+    /**
+     * Esse método imprime que um jogador comprou uma propriedade.
+     * @param comprador o jogador que comprou a propriedade
+     * @param propriedade a propriedade comprada
+     */
+    public static void imprimirCompra(Jogador comprador, Propriedade propriedade) {
+        System.out.println(comprador.getNome() + " comprou a propriedade " + propriedade.getNome() + " por " + propriedade.getPreco() + " reais.");
+    }
+
+    /**
+     * Esse método pergunta se um jogador quer construir uma casa em um terreno.
+     * @param comprador o jogador 
+     * @param terreno o terreno onde a casa pode ser comprada
+     */
+    public static boolean perguntaConstruirCasa(Tabuleiro tabuleiro, Jogador jogador, Scanner input) {
+        Terreno terreno = (Terreno) tabuleiro.getPosicoes().get(jogador.getPeca().getPosicao()).getPropriedade();
+        // Perguntar se o jogador quer construir uma casa
+        System.out.println("Você quer construir uma casa no seguinte terreno?"
+                + "\n" + terreno.getNome()
+                + "\nPreço da casa: " + terreno.getValorCasa() 
+                + "\n[1] Sim"
+                + "\n[2] Não");
+        int opcao = Integer.parseInt(input.nextLine());
+        if (opcao == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Esse método pergunta se um jogador quer construir um hotel em um terreno.
+     * @param comprador o jogador 
+     * @param terreno o terreno onde o hotel pode ser comprado
+     */
+    public static boolean perguntaConstruirHotel(Tabuleiro tabuleiro, Jogador jogador, Scanner input) {
+        Terreno terreno = (Terreno) tabuleiro.getPosicoes().get(jogador.getPeca().getPosicao()).getPropriedade();
+        // Perguntar se o jogador quer construir um hotel
+        System.out.println("Você quer construir um hotel no seguinte terreno?"
+                + "\n" + terreno.getNome()
+                + "\nPreço do hotel: " + terreno.getValorHotel() 
+                + "\n[1] Sim"
+                + "\n[2] Não");
+        int opcao = Integer.parseInt(input.nextLine());
+        if (opcao == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Esse método imprime que um jogador construiu uma casa em um terreno.
+     * @param jogador o jogador que construiu a casa
+     * @param terreno o terreno onde a casa foi construída
+     */
+    public static void imprimirConstrucaoCasa(Jogador jogador, Terreno terreno) {
+        System.out.println(jogador.getNome() + " construiu uma casa no terreno " + terreno.getNome() + ".");
+    }
+
+    /**
+     * Esse método imprime que um jogador construiu um hotel em um terreno.
+     * @param jogador o jogador que construiu o hotel
+     * @param terreno o terreno onde o hotel foi construído
+     */
+    public static void imprimirConstrucaoHotel(Jogador jogador, Terreno terreno) {
+        System.out.println(jogador.getNome() + " construiu um hotel no terreno " + terreno.getNome() + ".");
+    }
+
+
+    /*
+     * Esse método inicia o jogo, fazendo com que os jogadores joguem até que um deles vença.
+     * @param tabuleiro: o tabuleiro do jogo
+     * @param input: um scanner para ler o input do terminal
+     */
+    private static void inicioJogo(Tabuleiro tabuleiro, Scanner input){
+        // Começar o jogo
+        int vencedor = -1;
+        while (vencedor == -1){
+            // Para cada jogador
+            for (Jogador jogador : tabuleiro.getJogadores()){
+                // Imprimindo o tabuleiro
+                System.out.println(tabuleiro.toString());
+                // Imprimindo o jogador atual
+                System.out.println("Jogador atual: " + jogador.getNome() + "\n");
+                // Jogando
+                System.out.println("Pressione enter para jogar.");
+                input.nextLine();
+                int dado = Utilidades.jogarDado();
+                System.out.println("Você tirou " + dado + " no dado.");
+                int nova_posicao = (jogador.getPeca().getPosicao() + dado) % tabuleiro.getPosicoes().size();
+                System.out.println("Você está na posição " + nova_posicao + ".");
+                tabuleiro.moverJogador(jogador, dado, input);
+                // Verificando se o jogador faliu
+                if (jogador.getDinheiro() < 0){
+                    System.out.println("O jogador " + jogador.getNome() + "faliu!");
+                    tabuleiro.removeJogador(jogador.getId());
+                    // imprimindo o vencedor
+                    System.out.println("O jogador " + tabuleiro.getJogadores().get(0).getNome() + " venceu!");
+                    break;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args){
         // Criando um scanner para pegar um input do terminal
         Scanner input = new Scanner(System.in);
@@ -238,7 +381,7 @@ public class Main {
         Jogador jogador1 = new Jogador("João", "joao.jpg", new Peca("vermelho", 0));
         
         // Lendo o nome e email do jogador
-        leituraCPFEmail(jogador1, input);
+        //leituraCPFEmail(jogador1, input);
         
         // Imprimindo os dados do jogador
         System.out.println(jogador1.toString());
@@ -247,64 +390,19 @@ public class Main {
         Jogador jogador2 = new Jogador("Maria", "maria.jpg", new Peca("azul", 0));
 
         // Lendo o nome e email do jogador
-        leituraCPFEmail(jogador2, input);
+        //leituraCPFEmail(jogador2, input);
 
         // Imprimindo os dados do jogador
         System.out.println(jogador2.toString());
-        // Instanciando uma peça
-        Peca peca1 = new Peca("vermelho", 0);
-
-        // Alterando a cor da peça
-        peca1.setCor("azul");
-
-        // Alterando a posição da peça
-        peca1.setPosicao(10);
-
-        // Imprimindo os dados da peça
-        System.out.println(peca1.toString());
-
-        // Instanciando uma carta
-        CartaSorte carta1 = new CartaSorte("Pague 200", 0, -1, -200, "", 0, "");
-
-        //Atribuindo ela a um jogador
-        jogador1.adicionarCarta(carta1, (int)carta1.getValorPagamentoRecebimento());
-
-        // Alterando a descrição da carta
-        carta1.setDescricao("Pague 300");
-        carta1.setValorPagamentoRecebimento(-300);
-
-        // Imprimindo os dados da carta
-        System.out.println(carta1.toString());
 
         // Instanciando o tabuleiro
-        Tabuleiro tabuleiro = new Tabuleiro();
+        Tabuleiro tabuleiro = new Tabuleiro(jogador1, jogador2);
 
-        //Adicionando os jogadores ao tabuleiro
-        tabuleiro.addJogador(jogador1);
-        tabuleiro.addJogador(jogador2);
+        // Usando o menu de leitura de dados, se o usuário quiser adicionar mais jogadores ou propriedades
+        //menuDeLeituraDeDados(tabuleiro, input);
 
-        //Instanciando um serviço publico
-        ServicoPublico servico1 = new ServicoPublico("Serviço 1", "primeiro serv", jogador2, 1500, 300);
-        jogador2.adicionarCarta(servico1, servico1.getPreco());
-        tabuleiro.addPropriedade(servico1);
-
-        // Instanciando um terreno
-        Terreno terreno1 = new Terreno("Terreno 1", "primeiro terreno", jogador1, 1500, 300, 800, 3000);
-        jogador1.adicionarCarta(terreno1, terreno1.getPreco());
-        tabuleiro.addPropriedade(terreno1);
-
-        // Comprando uma casa no terreno (essa função já testa se o jogador possui dinheiro o suficiente e reduz seu dinheiro)
-        terreno1.comprarCasa();
-        //Imprimir os dados desse terreno
-        System.out.println(terreno1.toString());
-
-        // Instanciando uma estação
-        Estacao estacao1 = new Estacao("estação 1", "primeira est", jogador2, 1000,200);
-        jogador2.setDinheiro(jogador2.getDinheiro() - estacao1.getPreco());
-        tabuleiro.addPropriedade(estacao1);
-
-        // Usando o menu de leitura de dados
-        menuDeLeituraDeDados(tabuleiro, input);
+        // COMEÇAR O JOGO
+        inicioJogo(tabuleiro, input);
 
         // Fechando o scanner
         input.close();

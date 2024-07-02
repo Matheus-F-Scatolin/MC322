@@ -122,4 +122,12 @@ public class Utilidades {
         }
         return true;
     }
+
+    /**
+     * Função que simula o lançamento de um dado de 6 faces.
+     * @return um número aleatório entre 1 e 6
+     */
+    public static int jogarDado() {
+        return (((int) (Math.random() * 100)) % 6) + 1;
+    }
 }

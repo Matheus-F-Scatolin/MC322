@@ -75,6 +75,7 @@ public class Terreno extends Propriedade{
 
     /*
      * Essa função compra uma casa no terreno.
+     * Cada vez que o jogador para em um terreno que pertence a ele, ele pode comprar uma casa.
      * @return: true se a casa foi construída com sucesso, false caso contrário
      */
     public boolean comprarCasa() {

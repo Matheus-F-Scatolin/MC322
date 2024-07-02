@@ -15,9 +15,10 @@ public class CartaSorte extends Carta{
     private String acaoEspecifica;
     private int tempoAplicacao;
     private String restricoesUso;
+    private tipoCarta tipo;
 
     // Construtor da carta de sorte
-    public CartaSorte(String descricao, int movimentoTabuleiro, int efeito, float valorPagamentoRecebimento, String acaoEspecifica, int tempoAplicacao, String restricoesUso) {
+    public CartaSorte(String descricao, int movimentoTabuleiro, int efeito, float valorPagamentoRecebimento, String acaoEspecifica, int tempoAplicacao, String restricoesUso, tipoCarta tipo) {
         // Chamando o construtor da superclasse
         super(descricao, null);
         this.movimentoTabuleiro = movimentoTabuleiro;
@@ -26,6 +27,7 @@ public class CartaSorte extends Carta{
         this.acaoEspecifica = acaoEspecifica;
         this.tempoAplicacao = tempoAplicacao;
         this.restricoesUso = restricoesUso;
+        this.tipo = tipo;
     }
 
     // Getters e Setters
@@ -78,7 +80,26 @@ public class CartaSorte extends Carta{
         this.restricoesUso = restricoesUso;
     }
 
+    // Tipo: Se a carta é de sorte ou de revés
+    public tipoCarta getTipo() {
+        return this.tipo;
+    }
+    public void setTipo(tipoCarta tipo) {
+        this.tipo = tipo;
+    }
+
     // Métodos
+
+    /*
+     * Essa função executa a ação da carta de sorte
+     */
+    public void executaAcao(){
+        // Remove ou adiciona dinheiro ao jogador
+        super.getDono().setDinheiro((int)(super.getDono().getDinheiro() + this.valorPagamentoRecebimento));
+
+        // Remove a carta do jogador
+        super.getDono().removerCarta(this);
+    }
 
     /*
      * Essa função retorna uma string com os dados da carta de sorte no formato:
