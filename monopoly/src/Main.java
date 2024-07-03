@@ -354,19 +354,28 @@ public class Main {
                 // Imprimindo o jogador atual
                 System.out.println("Jogador atual: " + jogador.getNome() + "\n");
                 // Jogando
-                System.out.println("Pressione enter para jogar.");
-                input.nextLine();
+                System.out.println("Pressione enter para jogar, ou digite 'salvar' salvar o jogo e sair.");
+                String comando = input.nextLine();
+                if (comando.equals("salvar")){
+                    vencedor = 0;
+                    break;
+                }
                 int dado = Utilidades.jogarDado();
                 System.out.println("Você tirou " + dado + " no dado.");
                 int nova_posicao = (jogador.getPeca().getPosicao() + dado) % tabuleiro.getPosicoes().size();
                 System.out.println("Você está na posição " + nova_posicao + ".");
                 tabuleiro.moverJogador(jogador, dado, input);
+
+                // A cada ação, o progresso é salvo
+                tabuleiro.salvaLog();
+
                 // Verificando se o jogador faliu
                 if (jogador.getDinheiro() < 0){
                     System.out.println("O jogador " + jogador.getNome() + "faliu!");
                     tabuleiro.removeJogador(jogador.getId());
                     // imprimindo o vencedor
                     System.out.println("O jogador " + tabuleiro.getJogadores().get(0).getNome() + " venceu!");
+                    vencedor = 1;
                     break;
                 }
             }
@@ -377,32 +386,46 @@ public class Main {
         // Criando um scanner para pegar um input do terminal
         Scanner input = new Scanner(System.in);
 
-        // Instanciando um jogador
-        Jogador jogador1 = new Jogador("João", "joao.jpg", new Peca("vermelho", 0));
-        
-        // Lendo o nome e email do jogador
-        //leituraCPFEmail(jogador1, input);
-        
-        // Imprimindo os dados do jogador
-        System.out.println(jogador1.toString());
-        
-        //Instanciando um segundo jogador
-        Jogador jogador2 = new Jogador("Maria", "maria.jpg", new Peca("azul", 0));
+        // Perguntar se o usuário quer carregar um jogo salvo ou começar um novo
+        System.out.println("Você quer carregar um jogo salvo?"
+                + "\n[1] Sim"
+                + "\n[2] Não");
+        int opcao = Integer.parseInt(input.nextLine());
+        if (opcao == 1){
+            // Carregar o tabuleiro
+            Tabuleiro tabuleiro = Tabuleiro.abreLog();
 
-        // Lendo o nome e email do jogador
-        //leituraCPFEmail(jogador2, input);
+            // COMEÇAR O JOGO
+            inicioJogo(tabuleiro, input);
+        }
+        else {
+            // Instanciando um jogador
+            Jogador jogador1 = new Jogador("João", "joao.jpg", new Peca("vermelho", 0));
+            
+            // Lendo o nome e email do jogador
+            //leituraCPFEmail(jogador1, input);
+            
+            // Imprimindo os dados do jogador
+            System.out.println(jogador1.toString());
+            
+            //Instanciando um segundo jogador
+            Jogador jogador2 = new Jogador("Maria", "maria.jpg", new Peca("azul", 0));
 
-        // Imprimindo os dados do jogador
-        System.out.println(jogador2.toString());
+            // Lendo o nome e email do jogador
+            //leituraCPFEmail(jogador2, input);
 
-        // Instanciando o tabuleiro
-        Tabuleiro tabuleiro = new Tabuleiro(jogador1, jogador2);
+            // Imprimindo os dados do jogador
+            System.out.println(jogador2.toString());
 
-        // Usando o menu de leitura de dados, se o usuário quiser adicionar mais jogadores ou propriedades
-        //menuDeLeituraDeDados(tabuleiro, input);
+            // Instanciando o tabuleiro
+            Tabuleiro tabuleiro = new Tabuleiro(jogador1, jogador2);
 
-        // COMEÇAR O JOGO
-        inicioJogo(tabuleiro, input);
+            // Usando o menu de leitura de dados, se o usuário quiser adicionar mais jogadores ou propriedades
+            //menuDeLeituraDeDados(tabuleiro, input);
+
+            // COMEÇAR O JOGO
+            inicioJogo(tabuleiro, input);
+        }
 
         // Fechando o scanner
         input.close();

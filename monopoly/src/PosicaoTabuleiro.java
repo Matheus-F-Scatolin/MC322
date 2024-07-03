@@ -1,4 +1,9 @@
-public class PosicaoTabuleiro {
+import java.io.Serializable;
+
+/**
+ * Classe PosicaoTabuleiro: representa uma posição no tabuleiro.
+ */
+public class PosicaoTabuleiro implements Serializable {
     private int posicao;
     Propriedade propriedade;
     boolean posicaoInicial;

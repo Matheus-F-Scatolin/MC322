@@ -4,10 +4,12 @@
  * Última modificação: 29/04/2024 
  */
 
+import java.io.Serializable;
+
 /**
  *  Esta classe contém a estrutura de implementação de uma Carta 
  */
-abstract public class Carta {
+abstract public class Carta implements Serializable{
     // Atributos da carta
     // Atributo estático para armazenar o número de cartas
     private static int numCartas = 0;

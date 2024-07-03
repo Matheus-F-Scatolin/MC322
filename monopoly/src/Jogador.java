@@ -4,12 +4,13 @@
  * Última modificação: 29/04/2024 
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *  Esta classe contém a estrutura de implementação de um Jogador 
  */
-public class Jogador {
+public class Jogador implements Serializable {
     // Atributo estático para armazenar o número de jogadores criados
     private static int numJogadores = 0;
     // Atributos do jogador

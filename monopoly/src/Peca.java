@@ -8,7 +8,9 @@
  *  Esta classe contém a estrutura de implementação de uma Peca 
  */
 
-public class Peca {
+import java.io.Serializable;
+
+public class Peca implements Serializable{
     // Atributos da peça
     private String cor;
     private int posicao;

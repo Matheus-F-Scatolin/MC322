@@ -4,18 +4,27 @@
  * Última modificação: 29/04/2024 
  */
 
- import java.util.ArrayList;
- import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
  /**
-  *  Esta classe contém a estrutura de implementação de um Tabuleiro 
+  *  Esta classe contém a estrutura de implementação de um Tabuleiro, que implementa a interface Salvavel e Serializable.
   */
- public class Tabuleiro implements Salvavel{
-     private ArrayList<Jogador> jogadores;
-     private ArrayList<Propriedade> propriedades;
-     private ArrayList<PosicaoTabuleiro> posicoes;
-     private ArrayList<CartaSorte> cartasSorte;
+ public class Tabuleiro implements Salvavel, Serializable {
+     // versão da classe para serialização
+     private static final long serialVersionUID = 1L;
+     // Atributos
+    private ArrayList<Jogador> jogadores;
+    private ArrayList<Propriedade> propriedades;
+    private ArrayList<PosicaoTabuleiro> posicoes;
+    private ArrayList<CartaSorte> cartasSorte;
  
      // Construtor do tabuleiro
      public Tabuleiro(Jogador jogador1, Jogador jogador2) {
@@ -273,12 +282,51 @@ import java.util.Scanner;
         }
     }
 
-     /**
-      * Salva o log de um jogo.
-      */
-     public void salvaLog(){
-         // Salva o log do jogo
-     }
+    /**
+     * Salva o log  do tabuleiro de um jogo.
+    */
+    public void salvaLog(){
+    // Salva o log do jogo
+    // Tenta abrir o arquivo
+    // Cria um novo arquivo
+    String nomeArquivo = "logTabuleiro.bytej";
+    // Cria o arquivo
+    try{
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomeArquivo));
+        out.writeObject(this);
+        // Fecha o arquivo
+        out.flush();
+        out.close();
+    }
+    catch (IOException e){
+        System.out.println("Erro ao abrir o arquivo.");
+    }
+    }
+
+    /**
+    * Abre o log de um tabuleiro salvo.
+    * @return o tabuleiro salvo
+    */
+    public static Tabuleiro abreLog(){
+        // Abre o log do jogo
+        String nomeArquivo = "logTabuleiro.bytej";
+        try{
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(nomeArquivo));
+            Tabuleiro tabuleiro = (Tabuleiro) in.readObject();
+            // Fecha o arquivo
+            in.close();
+            return tabuleiro;
+        }
+        catch (IOException e){
+            System.out.println("Erro ao abrir o arquivo.");
+            return null;
+        }
+        catch (ClassNotFoundException e){
+            System.out.println("Classe não encontrada.");
+            return null;
+        }
+    }
+
 
     /*
     * Essa função retorna os dados de todos os jogadores e propriedades do tabuleiro.
