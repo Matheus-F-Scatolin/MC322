@@ -1,7 +1,7 @@
 /*
  * Tabuleiro.java
  * 
- * Última modificação: 29/04/2024 
+ * Última modificação: 03/07/2024 
  */
 
 import java.util.ArrayList;
@@ -123,7 +123,7 @@ import java.io.FileOutputStream;
     }
 
     /**
-     * Distribui as cartas de sorte e revés nas posições do tabuleiro.
+     * Distribui as cartas de propriedades nas posições do tabuleiro.
      * O tabuleiro terá 15 propriedades (5 de cada tipo) e 2 posições
      * nas quais o jogador deve pegar uma carta de sorte. Além disso,
      * a primeira posição será a posição inicial.
@@ -155,7 +155,7 @@ import java.io.FileOutputStream;
 
     }
  
-     /*
+     /**
       * Essa função adiciona um jogador ao tabuleiro.
       * @param jogador: o jogador a ser adicionado
       * @return: true se o jogador foi adicionado com sucesso, false caso contrário
@@ -167,7 +167,7 @@ import java.io.FileOutputStream;
          return false;
      }
  
-     /*
+     /**
       * Essa função remove um jogador do tabuleiro.
       * @param idDoJogador: o id do jogador a ser removido
       * @return: true se o jogador foi removido com sucesso, false caso contrário
@@ -182,7 +182,7 @@ import java.io.FileOutputStream;
          return false;
      }
  
-     /*
+     /**
       * Essa função adiciona uma propriedade ao tabuleiro.
       * @param propriedade: a propriedade a ser adicionada
       * @return: true se a propriedade foi adicionada com sucesso, false caso contrário
@@ -194,7 +194,7 @@ import java.io.FileOutputStream;
          return false;
      }
  
-     /*
+     /**
       * Essa função remove uma propriedade do tabuleiro.
       * @param idDaPropriedade: o id da propriedade a ser removida
       * @return: true se a propriedade foi removida com sucesso, false caso contrário
@@ -228,10 +228,11 @@ import java.io.FileOutputStream;
             if (posicao.getPropriedade().getDono() == null){
                 // Verificar se o jogador quer comprar a propriedade
                 if (Main.perguntaCompraPropriedade(this, jogador, input) == true){
-                    // Verificar se o jogador tem dinheiro para comprar a propriedade
-                    if (jogador.getDinheiro() >= posicao.getPropriedade().getPreco()){
+                    try {
                         // Comprar a propriedade
                         jogador.comprarPropriedade(posicao.getPropriedade());
+                    } catch (ExcecaoFaltaDeDinheiro e) {
+                        System.out.println(e.getMessage());
                     }
                 }
             }
@@ -244,8 +245,11 @@ import java.io.FileOutputStream;
                         // Verificar se o jogador quer construir uma casa
                         if (Main.perguntaConstruirCasa(this, jogador, input) == true){
                             // Construir casa
-                            if (terreno.comprarCasa() == true){
+                            try {
+                                terreno.comprarCasa();
                                 Main.imprimirConstrucaoCasa(jogador, terreno);
+                            } catch (ExcecaoFaltaDeDinheiro e) {
+                                System.out.println(e.getMessage());
                             }
                         }
                     }
@@ -253,8 +257,11 @@ import java.io.FileOutputStream;
                         // Verificar se o jogador quer construir um hotel
                         if (Main.perguntaConstruirHotel(this, jogador, input) == true){
                             // Construir hotel
-                            if (terreno.comprarHotel() == true){
+                            try {
+                                terreno.comprarHotel();
                                 Main.imprimirConstrucaoHotel(jogador, terreno);
+                            } catch (ExcecaoFaltaDeDinheiro e) {
+                                System.out.println(e.getMessage());
                             }
                         }
                     }
@@ -337,7 +344,7 @@ import java.io.FileOutputStream;
         out += "-------------------------------\n";
         out += "Jogadores:\n";
         for (Jogador jogador : this.jogadores){
-            out += jogador.getNome() + " (" + jogador.getId() +")-" + jogador.getDinheiro() + ".\n";
+            out += jogador.getNome() + " (pos: " + jogador.getPeca().getPosicao() +") - saldo: " + jogador.getDinheiro() + ".\n";
         }
         out += "-------------------------------\n";
         out += "Posições do tabuleiro:\n";

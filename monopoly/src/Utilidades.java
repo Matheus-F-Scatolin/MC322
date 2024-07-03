@@ -1,7 +1,7 @@
 /*
- * Main.java
+ * Utilidades.java
  * 
- * Última modificação: 29/04/2024 
+ * Última modificação: 03/07/2024 
  */
 
 /*
@@ -11,7 +11,7 @@
 public class Utilidades {
     // Validação de CPF
 
-    /*
+    /**
      * Essa função calcula o primeiro dígito verificador do CPF.
      * @param cpf: o CPF a ser validado
      * @return: o primeiro dígito verificador do CPF
@@ -31,7 +31,7 @@ public class Utilidades {
         return digito1;
     }
 
-    /*
+    /**
      * Essa função calcula o segundo dígito verificador do CPF.
      * @param cpf: o CPF a ser validado
      * @return: o segundo dígito verificador do CPF
@@ -51,7 +51,7 @@ public class Utilidades {
         return digito2;
     }
 
-    /* 
+    /**
      * Essa função verifica se um CPF é válido ou não, passando por diversos passos
      * de validação, que incluem a verificação do tamanho do CPF e a verificação dos
      * digitos verificadores.
@@ -92,7 +92,7 @@ public class Utilidades {
     }
 
     // Validação de email
-    /* 
+    /**
      * Essa função verifica se um email é válido ou não, passando por diversos passos
      * de validação, que incluem a verificação da presença de "@" e ".", e a verificação
      * do tamanho de cada uma das partes do email. Um exemplo de email válido é 

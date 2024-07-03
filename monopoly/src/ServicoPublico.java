@@ -1,7 +1,7 @@
 /*
  * ServicoPublico.java
  * 
- * Última modificação: 29/04/2024 
+ * Última modificação: 03/07/2024 
  */
 
 /**
@@ -38,13 +38,7 @@ public class ServicoPublico extends Propriedade {
 
     // Método toString para imprimir os dados do serviço público
     public String toString() {
-        String dono = "Nenhum";
-        if (super.getDono() != null) {
-            dono = super.getDono().getNome();
-        }
         return "Propriedade: " + super.getNome() + "\n" +
-               "ID: " + super.getId() + "\n" +
-               "Proprietário: " + dono + "\n" +
                "Preço: " + super.getPreco() + "\n" +
                "Aluguel Base: " + super.getAluguelBase();
     }

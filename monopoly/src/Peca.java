@@ -1,7 +1,7 @@
 /*
  * Peca.java
  * 
- * Última modificação: 20/03/2024 
+ * Última modificação: 03/07/2024 
  */
 
 /**
@@ -51,9 +51,9 @@ public class Peca implements Serializable{
         // Alterar o multiplicador do aluguel dos serviços públicos
         ServicoPublico.setMultiplicador(deslocamento);
 
-        // Se o jogador completar uma volta, adicionar 500 ao dinheiro
+        // Se o jogador completar uma volta, adicionar 350 ao dinheiro
         if (deslocamento + this.posicao >= tabuleiro.getPosicoes().size()){
-            jogador.setDinheiro(jogador.getDinheiro() + 500);
+            jogador.setDinheiro(jogador.getDinheiro() + 350);
             Main.imprimirVoltaCompleta(jogador);
         }
         

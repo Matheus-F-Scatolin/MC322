@@ -3,7 +3,7 @@ import java.util.Scanner;
 /*
  * Main.java
  * 
- * Última modificação: 29/04/2024 
+ * Última modificação: 03/07/2024 
  */
 public class Main {
     /*
@@ -94,7 +94,7 @@ public class Main {
         String nome = input.nextLine();
 
         // Lendo o caminho da foto do jogador
-        System.out.println("Insira o caminho da foto do jogador:");
+        System.out.println("Insira o caminho da foto do jogador (opcional):");
         String foto = input.nextLine();
 
         // Lendo a cor da peça do jogador
@@ -112,7 +112,9 @@ public class Main {
         return jogador;
     }
 
-    /*
+    /**
+     * OBS: ESSE MÉTODO NÃO É MAIS UTILIZADO (ERA UTILIZADO APENAS NO LAB 3),
+     * PORÉM, MANTIVE ELE AQUI POIS ELE PODE SER ÚTIL PARA FUTURAS IMPLEMENTAÇÕES.
      * Esse método lê inputs do terminal e executa ações de acordo com o input.
      * O loop é encerrado quando o usuário escolhe a opção de sair.
      * As opções disponíveis são:
@@ -231,6 +233,13 @@ public class Main {
         while (opcao != 7);
     }
     
+    /**
+     * Esse método pergunta se um jogador quer comprar uma propriedade.
+     * @param tabuleiro o tabuleiro do jogo
+     * @param jogador o jogador que quer comprar a propriedade
+     * @param input um scanner para ler o input do terminal
+     * @return
+     */
     public static boolean perguntaCompraPropriedade(Tabuleiro tabuleiro, Jogador jogador, Scanner input) {
         Propriedade propriedade = tabuleiro.getPosicoes().get(jogador.getPeca().getPosicao()).getPropriedade();
         // Perguntar se o jogador quer comprar a propriedade
@@ -258,7 +267,7 @@ public class Main {
      * Esse método imprime que um jogador completou uma volta e ganhou 500 reais.
      */
     public static void imprimirVoltaCompleta(Jogador jogador) {
-        System.out.println("O jogador " + jogador.getNome() + " completou uma volta e ganhou 500 reais!");
+        System.out.println("O jogador " + jogador.getNome() + " completou uma volta e ganhou 350 reais!");
     }
 
     /**
@@ -354,10 +363,12 @@ public class Main {
                 // Imprimindo o jogador atual
                 System.out.println("Jogador atual: " + jogador.getNome() + "\n");
                 // Jogando
-                System.out.println("Pressione enter para jogar, ou digite 'salvar' salvar o jogo e sair.");
+                System.out.println("Pressione enter para jogar, ou digite 'salvar' para salvar o jogo e sair.");
                 String comando = input.nextLine();
+                // Verificando se o jogador quer salvar o jogo
                 if (comando.equals("salvar")){
                     vencedor = 0;
+                    tabuleiro.salvaLog();
                     break;
                 }
                 int dado = Utilidades.jogarDado();
@@ -371,7 +382,7 @@ public class Main {
 
                 // Verificando se o jogador faliu
                 if (jogador.getDinheiro() < 0){
-                    System.out.println("O jogador " + jogador.getNome() + "faliu!");
+                    System.out.println("O jogador " + jogador.getNome() + " faliu!");
                     tabuleiro.removeJogador(jogador.getId());
                     // imprimindo o vencedor
                     System.out.println("O jogador " + tabuleiro.getJogadores().get(0).getNome() + " venceu!");
@@ -400,21 +411,19 @@ public class Main {
         }
         else {
             // Instanciando um jogador
-            Jogador jogador1 = new Jogador("João", "joao.jpg", new Peca("vermelho", 0));
-            
-            // Lendo o nome e email do jogador
-            //leituraCPFEmail(jogador1, input);
+            System.out.println("Vamos criar o primeiro jogador.");
+            Jogador jogador1 = leituraJogador(input);
             
             // Imprimindo os dados do jogador
+            System.out.println("Jogador 1 criado com sucesso.");
             System.out.println(jogador1.toString());
             
             //Instanciando um segundo jogador
-            Jogador jogador2 = new Jogador("Maria", "maria.jpg", new Peca("azul", 0));
-
-            // Lendo o nome e email do jogador
-            //leituraCPFEmail(jogador2, input);
+            System.out.println("Vamos criar o segundo jogador.");
+            Jogador jogador2 = leituraJogador(input);
 
             // Imprimindo os dados do jogador
+            System.out.println("Jogador 2 criado com sucesso.");
             System.out.println(jogador2.toString());
 
             // Instanciando o tabuleiro

@@ -1,7 +1,7 @@
 /*
  * Terreno.java
  * 
- * Última modificação: 29/04/2024 
+ * Última modificação: 03/07/2024 
  */
 
 /**
@@ -59,7 +59,7 @@ public class Terreno extends Propriedade{
 
     // Métodos
 
-    /*
+    /**
      * Essa função calcula o valor do aluguel do terreno, levando em consideração o número de casas e se há um hotel.
      * @return: valor do aluguel do terreno
      */
@@ -73,15 +73,16 @@ public class Terreno extends Propriedade{
         return super.getAluguelBase() * (1 + this.numeroCasas) * 2;
     }
 
-    /*
+    /**
      * Essa função compra uma casa no terreno.
      * Cada vez que o jogador para em um terreno que pertence a ele, ele pode comprar uma casa.
      * @return: true se a casa foi construída com sucesso, false caso contrário
      */
-    public boolean comprarCasa() {
+    public boolean comprarCasa() throws ExcecaoFaltaDeDinheiro{
         // Verifica se o jogador tem dinheiro suficiente para comprar uma casa
         if (super.getDono().getDinheiro() < this.valorCasa) {
-            return false;
+            // Lança uma exceção caso o jogador não tenha dinheiro suficiente
+            throw new ExcecaoFaltaDeDinheiro();
         }
         // Verifica se o terreno já possui um hotel
         if (this.temHotel) {
@@ -99,14 +100,15 @@ public class Terreno extends Propriedade{
         return true;
     }
 
-    /*
+    /**
      * Essa função compra um hotel no terreno.
      * @return: true se o hotel foi construído com sucesso, false caso contrário
      */
-    public boolean comprarHotel() {
+    public boolean comprarHotel() throws ExcecaoFaltaDeDinheiro{
         // Verifica se o jogador tem dinheiro suficiente para comprar um hotel
         if (super.getDono().getDinheiro() < this.valorHotel) {
-            return false;
+            // Lança uma exceção caso o jogador não tenha dinheiro suficiente
+            throw new ExcecaoFaltaDeDinheiro();
         }
         // Verifica se o terreno já possui um hotel
         if (this.temHotel) {
@@ -126,19 +128,11 @@ public class Terreno extends Propriedade{
 
     // Método toString para imprimir os dados do serviço público
     public String toString() {
-        String dono = "Nenhum";
-        if (super.getDono() != null) {
-            dono = super.getDono().getNome();
-        }
         return "Propriedade: " + super.getNome() + "\n" +
-               "ID: " + super.getId() + "\n" +
-               "Proprietário: " + dono + "\n" +
                "Preço: " + super.getPreco() + "\n" +
                "Aluguel Base: " + super.getAluguelBase() + "\n" +
-               "Número de casas: " + this.numeroCasas + "\n" +
                "Valor da casa: " + this.valorCasa + "\n" +
                "Valor do hotel: " + this.valorHotel + "\n" +
-               "Tem hotel: " + this.temHotel + "\n" +
                "Aluguel: " + this.calcularAluguel();
     }
 }

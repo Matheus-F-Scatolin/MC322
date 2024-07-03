@@ -1,7 +1,7 @@
 /*
  * Propriedade.java
  * 
- * Última modificação: 29/04/2024 
+ * Última modificação: 03/07/2024 
  */
 
 /**

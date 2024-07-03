@@ -1,7 +1,7 @@
 /*
  * Jogador.java
  * 
- * Última modificação: 29/04/2024 
+ * Última modificação: 03/07/2024 
  */
 
 import java.io.Serializable;
@@ -30,7 +30,7 @@ public class Jogador implements Serializable {
         numJogadores += 1;
         this.id = numJogadores;
         // Inicializando o dinheiro de cada jogador com 5000
-        this.dinheiro = 5000;
+        this.dinheiro = 4000;
         this.nome = nome;
         this.foto = foto;
         this.cartas = new ArrayList<Carta>();
@@ -127,7 +127,7 @@ public class Jogador implements Serializable {
      * Essa função faz com que o jogador compre uma propriedade.
      * @param propriedade a propriedade a ser comprada
      */
-    public void comprarPropriedade(Propriedade propriedade) {
+    public void comprarPropriedade(Propriedade propriedade) throws ExcecaoFaltaDeDinheiro{
         if (this.dinheiro >= propriedade.getPreco()) {
             this.dinheiro -= propriedade.getPreco();
             propriedade.setDono(this);
@@ -137,6 +137,9 @@ public class Jogador implements Serializable {
             // Imprimir os dados da compra
             Main.imprimirCompra(this, propriedade);
         }
+        else {
+            throw new ExcecaoFaltaDeDinheiro();
+        }
     }
 
     /**
@@ -144,10 +147,10 @@ public class Jogador implements Serializable {
      * @param propriedade a propriedade a ser paga.
      */
     public void pagarAluguel(Propriedade propriedade) {
-        if (this.dinheiro >= propriedade.calcularAluguel()) {
-            this.dinheiro -= propriedade.calcularAluguel();
-            propriedade.getDono().setDinheiro(propriedade.getDono().getDinheiro() + propriedade.calcularAluguel());
-        }
+        
+        this.dinheiro -= propriedade.calcularAluguel();
+        propriedade.getDono().setDinheiro(propriedade.getDono().getDinheiro() + propriedade.calcularAluguel());
+        
         // Imprimir os dados do pagamento
         Main.imprimirPagamentoAluguel(this, propriedade);
     }
